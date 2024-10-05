@@ -20,6 +20,17 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Add Git to PATH
+        if: runner.os == 'Windows'
+        run: |
+          echo "C:/Program Files/Git/bin" >> $GITHUB_ENV
+
+      - name: Check Git version and location (Windows only)
+        if: runner.os == 'Windows'
+        
+        run: |
+          git --version || echo "Git not found"
+          where git || echo "Git location not found"
       - uses: actions/checkout@v4
       - name: install
         run: yarn && (cd packages/bower-json && yarn link) && yarn link bower-json
