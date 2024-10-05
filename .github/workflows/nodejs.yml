@@ -20,25 +20,6 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Check Git version (Windows only)
-        if: runner.os == 'Windows'
-        run: git --version
-
-      - name: Check Git location (Windows only)
-        if: runner.os == 'Windows'
-        run: where git
-
-      - name: Add Git to PATH
-        if: runner.os == 'Windows'
-        run: echo "::add-path::C:/Program Files/Git/bin"
-
-      - name: Set git config
-        shell: bash
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.symlinks true
-        if: runner.os == 'Windows'
-
       - uses: actions/checkout@v4
       - name: install
         run: yarn && (cd packages/bower-json && yarn link) && yarn link bower-json
