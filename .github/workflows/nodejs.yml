@@ -16,21 +16,10 @@ jobs:
       matrix:
         # https://github.com/actions/setup-node/issues/27
         node-version: [6.x, 8.x, 10.x, 12.x, 14.x, 16.x]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [windows-2019]
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Add Git to PATH
-        if: runner.os == 'Windows'
-        run: |
-          echo "C:/Program Files/Git/bin" >> $GITHUB_ENV
-
-      - name: Check Git version and location (Windows only)
-        if: runner.os == 'Windows'
-        
-        run: |
-          git --version || echo "Git not found"
-          where git || echo "Git location not found"
       - uses: actions/checkout@v4
       - name: install
         run: yarn && (cd packages/bower-json && yarn link) && yarn link bower-json
