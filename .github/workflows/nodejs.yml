@@ -27,6 +27,10 @@ jobs:
           git config --global core.symlinks true
         if: runner.os == 'Windows'
 
+      - name: Add Git to PATH
+        run: |
+          $env:PATH += ";C:/Program Files/Git/bin"
+
       - uses: actions/checkout@v2
       - name: install
         run: yarn && (cd packages/bower-json && yarn link) && yarn link bower-json
