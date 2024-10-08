@@ -30,6 +30,7 @@ jobs:
       - name: Add Git to PATH
         run: |
           $env:PATH += ";C:/Program Files/Git/bin"
+        if: runner.os == 'Windows'
 
       - uses: actions/checkout@v2
       - name: install
